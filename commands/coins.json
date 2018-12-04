@@ -1,0 +1,32 @@
+let coins = require("./coins.json");
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Make sure you put that back in index.js
+When you want your coins back.
+-Liam
+
+Same with this also
+
+
+if(!coins[message.author.id]){
+  coins[message.author.id] = {
+    coins:0
+  };
+}
+
+let coinAmt = Math.floor(Math.random() * 25) + 15;
+let baseAmt = Math.floor(Math.random() * 25) + 15;
+
+if(coinAmt === baseAmt){
+coins[message.author.id] = {
+  coins: coins[message.author.id].coins + coinAmt
+};
+fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
+  if (err) console.log(err)
+});
+let coinEmbed = new Discord.RichEmbed()
+.setAuthor(message.author.username)
+.setColor("#f44242")
+.addField("💰", `${coinAmt} coins added!`);
+
+message.channel.send(coinEmbed).then(msg => {msg.delete(5000)});
+}
